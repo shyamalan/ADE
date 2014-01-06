@@ -1,0 +1,14 @@
+#!/bin/bash
+#cd CPP_Version/bin/
+#no./angstrom_avoid_obj
+
+echo "Choose from below mentioned options:"
+echo "1: Continue to prompt"
+echo "2: Open the sample program"
+
+read a
+if [ $a -eq 1 ]
+	then
+		exit 0
+fi
+vi ~/sketch_template.cpp

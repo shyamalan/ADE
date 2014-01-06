@@ -1,0 +1,6 @@
+#!/bin/bash
+
+start:
+	cd /home/root/CPP_Version/bin
+	./angstrom_avoid_obj &
+
