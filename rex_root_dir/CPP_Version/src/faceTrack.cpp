@@ -72,6 +72,7 @@
      for( int i = 0; i < faces.size(); i++ )
      {	pos[1] = (int)((float)faces[i].x * 25.0 / 107.0);
 	pos[2] = (int)((float)faces[i].y * 55.0 / 78.0);
+     }
 /*       Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 );
        cout << "1: " << faces[i].x << " " << faces[i].y << endl;
        ellipse( frame, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 );
