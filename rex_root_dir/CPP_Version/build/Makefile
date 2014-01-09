@@ -1,14 +1,20 @@
 
 CC = g++
 
-default: sensor  
+default: sensor2
 	@echo Executable located in bin
 
-sensor: Sensor.o Serial.o master.o i2c-common.o MMA7455.o
+sensor2: master.o Sensor.o Serial.o
+	$(CC) master.o Sensor.o Serial.o -o ../bin/sensor
+
+face.o: ../src/face.cpp
+	$(CC) -c ../src/face.cpp
+
+sensor1: Sensor.o Serial.o master.o i2c-common.o MMA7455.o
 	$(CC) Sensor.o Serial.o master.o i2c-common.o MMA7455.o -o ../bin/sensor
 
 Sensor.o: ../src/Sensor.cpp
-	$(CC) -c ../src/Sensor.cpp
+	$(CC) -c ../src/Sensor.cpp -lopencv_core -lopencv_imgproc -lopencv_highgui -lopencv_ml -lopencv_video -lopencv_features2d -lopencv_calib3d -lopencv_objdetect -lopencv_contrib -lopencv_legacy -lopencv_flann
 
 MMA7455.o: ../src/MMA7455.cpp
 	$(CC) -c ../src/MMA7455.cpp

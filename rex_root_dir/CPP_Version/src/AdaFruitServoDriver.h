@@ -16,7 +16,7 @@
 #include <math.h>
 #include <fcntl.h>
 
-#include "SlaveDevice.h"
+#include "i2c-common.h"
 
 #define MAX_BUS 64
 

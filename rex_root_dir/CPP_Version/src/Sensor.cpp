@@ -1,27 +1,25 @@
-/*
- * I2CServoDriver.cpp
- *
- *  Created on: Aug 15, 2013
- *      Author: kartik
- */
 
 #include <iostream>
 #include "Serial.h"
-#include "MMA7455.h"
+#include "face.h"
+#include "pubsub.h"
+
 using namespace std;
 
-MMA7455 device;
 bool setup() {
-	return device.begin();
+	return true;
 }
 
 bool loop(){
-	if(!kbhit()){
-		cout << device.acc_x() << endl;
+	key_t key = 1234;
+	if(!kbhit()){ \\ true till it encounters a keyboard hit
+		cout << endl << "Number of faces = " << detect() << endl;
+		char *pos;
+		pos = face_pos();
+		publish(key, pos, 2);
 		return true;
 	}
 	else{
-		device.end();
 		return false;
 	}
 }
