@@ -8,6 +8,11 @@
 #ifndef HEXAPOD_H_
 #define HEXAPOD_H_
 
+#include "MatrixMath.h"
+#include "AdaFruitServoDriver.h"
+#include <iostream>
+#include <math.h>
+
 // physical constants for each leg
 // same for each leg
 #define x_1_2 0.0
@@ -57,6 +62,7 @@ const float pi = 3.14;
 
 class Hexapod{
 private:
+	AdaFruitServoDriver driver1, driver2;
 	int alpha[6];	// this will contain rotation of the leg origin to abs origin
 					// different for different legs
 	int home_value[18];

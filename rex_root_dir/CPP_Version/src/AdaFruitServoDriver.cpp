@@ -10,17 +10,10 @@
 
 using namespace std;
 
-AdaFruitServoDriver :: AdaFruitServoDriver(int i2cBus) {
-	I2CAddress = 0x40;
-	I2CBus = i2cBus;
-	slave.init_device(I2CBus, I2CAddress);
-	servoControllerReset();
-}
-
-AdaFruitServoDriver :: AdaFruitServoDriver(int i2cBus, int8_t i2caddr) {
+bool AdaFruitServoDriver :: begin(int8_t i2caddr) {
 	I2CAddress = i2caddr;
-	I2CBus = i2cBus;
-	slave.init_device(I2CBus,I2CAddress);
+	I2CBus = 2;
+	slave.init_device(I2CBus, I2CAddress);
 	servoControllerReset();
 }
 

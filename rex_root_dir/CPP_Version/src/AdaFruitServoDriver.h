@@ -53,8 +53,8 @@ private:
 	int map(int, int, int, int, int);	// maps angle values from deg to pwm value
 
 public:
-	AdaFruitServoDriver(int);
-	AdaFruitServoDriver(int, int8_t);
+	bool begin(int8_t);
+	//AdaFruitServoDriver(int, int8_t);
 	bool initializeServoDriver(int);
 	bool setPWMValue(int8_t, int16_t);
 	~AdaFruitServoDriver();

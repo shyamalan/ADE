@@ -5,23 +5,17 @@
  *      Author: kartik
  */
 #include "Hexapod.h"
-#include "MatrixMath.h"
-#include "AdaFruitServoDriver.h"
-#include <iostream>
-#include <math.h>
 
 using namespace std;
 
-
-AdaFruitServoDriver *driver1 = new AdaFruitServoDriver(2);
-AdaFruitServoDriver *driver2 = new AdaFruitServoDriver(2, 0x41);
-
 void Hexapod :: Hexapod_init(){
+	driver1.begin(0x40);
+	driver2.begin(0x41);
 	HEIGHT = -4.0;
 	prob = true;
-	if(!driver1 -> initializeServoDriver(60))
+	if(!driver1.initializeServoDriver(60))
 		prob = false;
-	if(!driver2 -> initializeServoDriver(60))
+	if(!driver2.initializeServoDriver(60))
 		prob = false;
 	// initialization of angle of each leg's co-ordinate system
 	alpha[0] = 60;
@@ -62,11 +56,11 @@ void Hexapod :: Hexapod_init(){
 
 		pwmValue = map(value, 0, 180, SERVOMIN, SERVOMAX);
 		if(i < 9){
-			if(!driver1 -> setPWMValue(i, pwmValue))
+			if(!driver1.setPWMValue(i, pwmValue))
 				prob = false;
 		}
 		else{
-			if(!driver2 -> setPWMValue(i - 9, pwmValue))
+			if(!driver2.setPWMValue(i - 9, pwmValue))
 				prob = false;
 		}
 		// update the current value of the angle
@@ -115,12 +109,12 @@ bool Hexapod :: moveToDOFValue(){
 
 				if(DOF_Limits()){
 					if(i < 9){
-						if(!driver1 -> setPWMValue(i, pwmValue))
+						if(!driver1.setPWMValue(i, pwmValue))
 							return false;
 						usleep(DELAY2 * 1000);
 					} // if statement end
 					else{
-						if(!driver2 -> setPWMValue((i - 9), pwmValue))
+						if(!driver2.setPWMValue((i - 9), pwmValue))
 							return false;
 						usleep(DELAY2 * 1000);
 					} // else statement end
@@ -664,6 +658,5 @@ int Hexapod :: map (int var, int fromMin, int fromMax, int toMin, int toMax){
 }
 
 Hexapod :: ~Hexapod(){
-	delete driver1;
-	delete driver2;
+
 }
