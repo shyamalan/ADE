@@ -16,6 +16,10 @@ public:
 	char mtext[MSGSZ];
 };
 
+key_t keygen(char*);
+
+void beginComm(char*);
+
 bool publish(key_t, char*, int);
 
 bool subscribe(key_t, char*, int);

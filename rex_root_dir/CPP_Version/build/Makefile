@@ -19,8 +19,8 @@ Sensor.o: ../src/Sensor.cpp
 MMA7455.o: ../src/MMA7455.cpp
 	$(CC) -c ../src/MMA7455.cpp
 
-send: message_send.o rangeFinder.o SlaveDevice.o
-	$(CC) message_send.o rangeFinder.o SlaveDevice.o -o ../bin/message_send
+send: message_send.o rangeFinder.o i2c-common.o
+	$(CC) message_send.o rangeFinder.o i2c-common.o -o ../bin/message_send
 
 receive: ../src/message_rec.cpp
 	$(CC) ../src/message_rec.cpp -o ../bin/message_rec
@@ -28,13 +28,19 @@ receive: ../src/message_rec.cpp
 message_send.o: ../src/message_send.cpp
 	$(CC) -c ../src/message_send.cpp
 
-all: angstrom_avoid_obj key_input
+all: angstrom_avoid_obj key_input mcp
 	@echo Execulable located in bin
+
+mcp: mcp.o master.o pubsub.o Serial.o
+	$(CC) mcp.o master.o pubsub.o Serial.o -o ../bin/mcp
+
+mcp.o: ../src/mcp.cpp
+	$(CC) -c ../src/mcp.cpp
 
 sample: sample_pub sample_sub
 
-sample_pub: sample_pub.o master.o pubsub.o Serial.o SRF08.o SlaveDevice.o
-	$(CC) sample_pub.o master.o pubsub.o Serial.o SRF08.o SlaveDevice.o -o ../bin/sample_pub
+sample_pub: sample_pub.o master.o pubsub.o Serial.o SRF08.o i2c-common.o
+	$(CC) sample_pub.o master.o pubsub.o Serial.o SRF08.o i2c-common.o -o ../bin/sample_pub
 
 sample_sub: sample_sub.o master.o pubsub.o Serial.o
 	$(CC) sample_sub.o master.o pubsub.o Serial.o -o ../bin/sample_sub
@@ -62,8 +68,8 @@ facedetect: faceDetect.o
 faceDetect.o: ../src/faceDetect.cpp
 	$(CC) -c ../src/faceDetect.cpp
 
-angstrom_avoid_obj: angstrom_avoid_obj.o pubsub.o Serial.o master.o SlaveDevice.o Hexapod.o AdaFruitServoDriver.o 
-	$(CC) angstrom_avoid_obj.o master.o pubsub.o Serial.o SlaveDevice.o Hexapod.o AdaFruitServoDriver.o -o ../bin/angstrom_avoid_obj
+angstrom_avoid_obj: angstrom_avoid_obj.o pubsub.o Serial.o master.o i2c-common.o Hexapod.o AdaFruitServoDriver.o 
+	$(CC) angstrom_avoid_obj.o master.o pubsub.o Serial.o i2c-common.o Hexapod.o AdaFruitServoDriver.o -o ../bin/angstrom_avoid_obj
 
 key_input: key_input.o master.o Serial.o pubsub.o
 	$(CC) key_input.o pubsub.o master.o Serial.o -o ../bin/key_input

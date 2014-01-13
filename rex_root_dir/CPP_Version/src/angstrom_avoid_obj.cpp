@@ -9,12 +9,17 @@
 #include "Hexapod.h"
 #include "Serial.h"
 #include "pubsub.h"
+#include <string.h>
 
 using namespace std;
 
+key_t key;
+char name[7];
 Hexapod robot;
 //char UP, DOWN, LEFT, RIGHT;
 bool setup() {
+	strcpy(name, "wire1s");
+	key = keygen(name);
 	robot.Hexapod_init();
 /*	cout << "Press the UP key" << endl;
 	UP = getchar();
@@ -34,7 +39,7 @@ bool setup() {
 
 char data[1];
 bool loop(){
-	key_t key = 1234;
+	beginComm(name);
 	if(subscribe(key, data, 1)){
 //		char ch = getchar();
 		if (data[0] == 'w'){
@@ -53,7 +58,7 @@ bool loop(){
 			robot.walkSide(-1);    
                         return true;
 		}
-		if (data[0] == 27){
+		if (data[0] == 'c'){
 			cout << "end" << endl;
 			robot.reliefStep();
 			endTransfer(key); 

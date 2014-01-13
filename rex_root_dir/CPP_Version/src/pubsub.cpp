@@ -2,6 +2,17 @@
 
 using namespace std;
 
+key_t keygen(char* name){
+	key_t key;
+	key = ftok(name, 'S');
+	return key;
+}
+
+void beginComm(char* name){
+	key_t key = 1234;
+	publish(key, name, 7);
+}
+
 bool publish(key_t key, char* data, int len) {
 	int msqid = 0;
         int msgflg = IPC_CREAT | IPC_EXCL | 0666;
